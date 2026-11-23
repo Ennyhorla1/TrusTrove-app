@@ -128,13 +128,13 @@ export function TransactionPending({
           <div className="w-full bg-background-secondary border border-border/40 rounded p-3 text-left font-mono text-[10px] space-y-2 mb-6">
             <div className="flex justify-between text-foreground/70 font-bold uppercase tracking-wider">
               <span>TX HASH</span>
-              <span className="text-primary">TESTNET</span>
+              <span className="text-primary">{getExpectedNetwork().label.toUpperCase()}</span>
             </div>
             <div className="text-foreground break-all bg-muted/50 p-2 border border-border/20 rounded select-all">
               {txHash}
             </div>
             <a
-              href={`https://stellar.expert/explorer/testnet/tx/${txHash}`}
+              href={`https://stellar.expert/explorer/${getExpectedNetwork().name.toLowerCase()}/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-primary hover:underline hover:text-primary-hover font-bold"
