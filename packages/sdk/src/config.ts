@@ -1,5 +1,4 @@
-import { Networks } from "@stellar/stellar-sdk";
-import type { rpc } from "@stellar/stellar-sdk";
+import { Networks, type rpc } from "@stellar/stellar-sdk";
 
 export const DEFAULT_NETWORK = {
   network:
