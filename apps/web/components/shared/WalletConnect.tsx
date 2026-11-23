@@ -117,15 +117,10 @@ export function WalletConnect() {
       {connected && (
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
-            {network === "testnet" ? (
+            {network === getExpectedNetwork().name ? (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 font-mono">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                Testnet
-              </span>
-            ) : network === "mainnet" ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Mainnet
+                {getExpectedNetwork().label.split(" ")[1] || getExpectedNetwork().name}
               </span>
             ) : (
               <Button
@@ -138,7 +133,7 @@ export function WalletConnect() {
                 {switchingNetwork && (
                   <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
                 )}
-                {switchingNetwork ? "SWITCHING..." : "Switch Network"}
+                {switchingNetwork ? "SWITCHING..." : `Switch to ${getExpectedNetwork().name.toUpperCase()}`}
               </Button>
             )}
           </div>
