@@ -15,7 +15,9 @@ import { PoolClient, type SimulationResult } from "@trusttrove/sdk";
 import { Address, nativeToScVal } from "@stellar/stellar-sdk";
 import { formatAmount } from "@/lib/assets";
 
-const poolContractID = process.env.NEXT_PUBLIC_POOL_CONTRACT_ID || "";
+import { CONTRACT_IDS } from "@/lib/env";
+
+const poolContractID = CONTRACT_IDS.pool;
 const STROOPS_PER_UNIT = 10_000_000;
 
 function formatShareValue(value: bigint | undefined): string {

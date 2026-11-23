@@ -1,26 +1,46 @@
 /**
- * Chain/network settings read from `NEXT_PUBLIC_*` env vars.
- *
- * Every read is a literal `process.env.NEXT_PUBLIC_X` member access in app
- * code, which is the only form Next.js statically inlines into the client
- * bundle. The SDK package reads the same variables with optional chaining
- * (`process.env?.X`) from a separately compiled module, which is not inlined,
- * so the web app must hand these values to the SDK itself (see `sdkConfig.ts`)
- * and use this module for anything that must agree with the SDK (e.g. the
- * USDC issuer shown in `ASSET_INFO`).
- *
- * This module has no imports so it is safe to load from any module graph.
+ * Chain/network/app settings read from `process.env.NEXT_PUBLIC_*`.
  */
 
-/** Testnet USDC issuer used when `NEXT_PUBLIC_USDC_ISSUER` is not set. */
 export const DEFAULT_USDC_ISSUER =
   "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5";
 
-/** Resolved USDC issuer: `NEXT_PUBLIC_USDC_ISSUER`, else the testnet default. */
 export const USDC_ISSUER =
   process.env.NEXT_PUBLIC_USDC_ISSUER || DEFAULT_USDC_ISSUER;
 
-/** Raw (possibly undefined) network settings, inlined by Next.js at build time. */
+export const HORIZON_URL =
+  process.env.NEXT_PUBLIC_HORIZON_URL || "https://horizon-testnet.stellar.org";
+
+export const SOROBAN_RPC_URL =
+  process.env.NEXT_PUBLIC_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
+
+export const NETWORK_PASSPHRASE =
+  process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015";
+
+export const CONTRACT_IDS = {
+  registry: process.env.NEXT_PUBLIC_REGISTRY_CONTRACT_ID || "",
+  invoice: process.env.NEXT_PUBLIC_INVOICE_CONTRACT_ID || "",
+  pool: process.env.NEXT_PUBLIC_POOL_CONTRACT_ID || "",
+  escrow: process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID || "",
+  agentRegistry: process.env.NEXT_PUBLIC_AGENT_REGISTRY_CONTRACT_ID || "",
+};
+
+export const API_BASE_URL = (() => {
+  const val = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!val && process.env.NODE_ENV === "production") {
+    console.warn("Warning: NEXT_PUBLIC_API_BASE_URL is not set in production.");
+  }
+  return val || "http://localhost:8080";
+})();
+
+export const APP_URL = (() => {
+  const val = process.env.NEXT_PUBLIC_APP_URL;
+  if (!val && process.env.NODE_ENV === "production") {
+    console.warn("Warning: NEXT_PUBLIC_APP_URL is not set in production.");
+  }
+  return val || "http://localhost:3000";
+})();
+
 export function readNetworkEnv() {
   return {
     horizonUrl: process.env.NEXT_PUBLIC_HORIZON_URL || undefined,
