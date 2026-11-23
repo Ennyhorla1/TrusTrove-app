@@ -9,8 +9,8 @@ As of the current release, Stellar Mainnet is an experimental/upcoming target fo
 Set the following environment variable in your `.env.local` or deployment platform:
 
 ```env
-NEXT_PUBLIC_STELLAR_NETWORK=mainnet
-```
+   NEXT_PUBLIC_STELLAR_NETWORK=mainnet
+   ```
 
 When configured, the application will:
 - Expect Freighter to be connected to the Stellar Public/Mainnet network (`PUBLIC`).

@@ -112,14 +112,11 @@ describe("getExpectedNetwork", () => {
     expect(net.freighterNetwork).toBe("PUBLIC");
   });
 
-  it("rejects wrong network in validateFreighterNetwork logic", async () => {
-    const { getNetworkDetails } = await import("@stellar/freighter-api");
-    vi.mock("@stellar/freighter-api", () => ({
-      getNetworkDetails: vi.fn().mockResolvedValue({ network: "pubnet" }),
-    }));
-    process.env.NEXT_PUBLIC_STELLAR_NETWORK = "testnet";
-    // Test that a mismatch throws wrong_network error
-    const details = await getNetworkDetails();
-    expect(details.network).not.toBe(getExpectedNetwork().name);
+  it("recognizes mainnet config and exposes expected properties", () => {
+    process.env.NEXT_PUBLIC_STELLAR_NETWORK = "mainnet";
+    const net = getExpectedNetwork();
+    expect(net.name).toBe("mainnet");
+    expect(net.freighterNetwork).toBe("PUBLIC");
+    expect(net.label).toBe("SOROBAN MAINNET");
   });
 });
